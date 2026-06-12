@@ -8,132 +8,173 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crimson: { DEFAULT: '#8B1A1A', dark: '#6B1212', light: '#B22222' },
+            gold: { DEFAULT: '#C9A84C', light: '#E4C875', pale: '#F5E8C0' },
+            cream: '#FDF6E9',
+            ink: '#1C1008',
+            body: '#2D1A0E',
+            muted: '#6B5840',
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+            display: ['"Playfair Display"', 'serif'],
+          },
+          boxShadow: {
+            brand: '0 4px 24px rgba(139,26,26,0.12)',
+            'brand-lg': '0 8px 48px rgba(139,26,26,0.18)',
+          },
+        },
+      },
+    };
+  </script>
+  <style type="text/tailwindcss">
+    html { scroll-behavior: smooth; }
+    .hero-pattern::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 4px 20px rgba(139,26,26,0.5); }
+      50% { box-shadow: 0 4px 32px rgba(139,26,26,0.8); }
+    }
+    .animate-pulse-ring { animation: pulse-ring 2.5s infinite; }
+    .feature-li::before { content: '✓'; color: #C9A84C; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .summer-li::before { content: '★'; color: #E4C875; flex-shrink: 0; }
+  </style>
 </head>
-<body>
+<body class="font-sans bg-cream text-body leading-relaxed overflow-x-hidden">
 
 <!-- MOBILE MENU -->
-<div id="mobile-menu" role="dialog" aria-modal="true">
-  <button class="close-btn" onclick="closeMobileMenu()" aria-label="Жабу">✕</button>
-  <a href="#about" onclick="closeMobileMenu()">Орталық</a>
-  <a href="#courses" onclick="closeMobileMenu()">Курстар</a>
-  <a href="#dance" onclick="closeMobileMenu()">Би студиясы</a>
-  <a href="#why" onclick="closeMobileMenu()">Неліктен біз?</a>
-  <a href="#contact" onclick="closeMobileMenu()">Байланыс</a>
-  <a href="tel:87476620340" style="color: var(--gold); font-size:1.5rem; font-weight:900;">87476620340</a>
+<div id="mobile-menu" role="dialog" aria-modal="true" class="hidden fixed inset-0 bg-[rgba(255,253,245,0.98)] z-[99] flex-col items-center justify-center gap-8 [&.open]:flex">
+  <button class="absolute top-6 right-6 text-2xl bg-transparent border-none cursor-pointer text-crimson" onclick="closeMobileMenu()" aria-label="Жабу">✕</button>
+  <a class="text-xl font-bold text-crimson no-underline" href="#about" onclick="closeMobileMenu()">Орталық</a>
+  <a class="text-xl font-bold text-crimson no-underline" href="#courses" onclick="closeMobileMenu()">Курстар</a>
+  <a class="text-xl font-bold text-crimson no-underline" href="#dance" onclick="closeMobileMenu()">Би студиясы</a>
+  <a class="text-xl font-bold text-crimson no-underline" href="#why" onclick="closeMobileMenu()">Неліктен біз?</a>
+  <a class="text-xl font-bold text-crimson no-underline" href="#contact" onclick="closeMobileMenu()">Байланыс</a>
+  <a href="tel:87476620340" class="text-gold text-2xl font-black no-underline">87476620340</a>
 </div>
 
 <!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <a href="#" class="logo">
-      <img src="Logo_Aru_Naz.png" alt="Ару-Наз логотипі" />
-      <div class="logo-text">
-        <strong>Aru-Naz</strong>
-        <span>Білім орталығы · Алматы</span>
+<header class="sticky top-0 z-[100] bg-[rgba(255,253,245,0.96)] backdrop-blur-md border-b-2 border-gold-pale px-8">
+  <div class="max-w-[1200px] mx-auto flex items-center justify-between h-[72px]">
+    <a href="#" class="flex items-center gap-3 no-underline">
+      <img src="Logo_Aru_Naz.png" alt="Ару-Наз логотипі" class="h-[52px] w-auto" />
+      <div class="leading-tight">
+        <strong class="block text-xl font-extrabold text-crimson tracking-wide">Aru-Naz</strong>
+        <span class="text-[0.7rem] text-muted font-medium tracking-widest uppercase">Білім орталығы · Алматы</span>
       </div>
     </a>
-    <nav>
-      <a href="#about">Орталық</a>
-      <a href="#courses">Курстар</a>
-      <a href="#dance">Би студиясы</a>
-      <a href="#why">Неліктен біз?</a>
-      <a href="#contact">Байланыс</a>
-      <a href="tel:87476620340" class="nav-cta">📞 Қоңырау</a>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a class="no-underline text-[0.82rem] font-semibold text-body hover:text-crimson transition-colors" href="#about">Орталық</a>
+      <a class="no-underline text-[0.82rem] font-semibold text-body hover:text-crimson transition-colors" href="#courses">Курстар</a>
+      <a class="no-underline text-[0.82rem] font-semibold text-body hover:text-crimson transition-colors" href="#dance">Би студиясы</a>
+      <a class="no-underline text-[0.82rem] font-semibold text-body hover:text-crimson transition-colors" href="#why">Неліктен біз?</a>
+      <a class="no-underline text-[0.82rem] font-semibold text-body hover:text-crimson transition-colors" href="#contact">Байланыс</a>
+      <a href="tel:87476620340" class="no-underline text-[0.82rem] font-semibold bg-crimson text-white px-4 py-2 rounded-full hover:bg-crimson-dark hover:-translate-y-px transition">📞 Қоңырау</a>
     </nav>
-    <div class="burger" onclick="openMobileMenu()" aria-label="Мәзір" role="button" tabindex="0">
-      <span></span><span></span><span></span>
+    <div class="flex md:hidden flex-col gap-[5px] cursor-pointer p-1" onclick="openMobileMenu()" aria-label="Мәзір" role="button" tabindex="0">
+      <span class="w-6 h-0.5 bg-crimson rounded"></span><span class="w-6 h-0.5 bg-crimson rounded"></span><span class="w-6 h-0.5 bg-crimson rounded"></span>
     </div>
   </div>
 </header>
 
 <!-- ANNOUNCEMENT -->
-<div class="announcement">
-  <p>🌞 <strong>Жазғы даму курсы ашылды!</strong> — 1–4 сынып оқушыларына арналған. Орындар шектеулі!</p>
+<div class="bg-gradient-to-r from-gold to-gold-light px-8 py-4 text-center">
+  <p class="text-[0.9rem] font-bold text-ink tracking-wide">🌞 <strong class="text-crimson">Жазғы даму курсы ашылды!</strong> — 1–4 сынып оқушыларына арналған. Орындар шектеулі!</p>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-badge">✦ Алматы қ., Шұғыла ықшам ауданы ✦</div>
-  <h1>Білім мен <em>Шығармашылық</em> –<br/>Бала Болашағы!</h1>
-  <p>Әр баланың дамуына жол ашатын курстар бір орында. Тәжірибелі мамандар, заманауи әдістемелер, жеке тәсіл.</p>
-  <div class="hero-actions">
-    <a href="#courses" class="btn-primary">✦ Курстарды қарау</a>
-    <a href="#contact" class="btn-outline">Жазылу</a>
+<section class="hero-pattern bg-gradient-to-br from-crimson-dark via-[#A01E1E] to-[#7A1010] text-white text-center px-8 pt-24 pb-20 max-sm:px-5 max-sm:pt-16 max-sm:pb-14 relative overflow-hidden" id="hero">
+  <div class="inline-block bg-gold/20 border border-gold/50 text-gold-light text-[0.78rem] font-semibold tracking-[0.12em] uppercase px-5 py-1.5 rounded-full mb-6">✦ Алматы қ., Шұғыла ықшам ауданы ✦</div>
+  <h1 class="text-[clamp(1.8rem,5vw,3.4rem)] font-black leading-[1.15] max-w-[800px] mx-auto mb-4 tracking-tight">Білім мен <em class="text-gold-light not-italic">Шығармашылық</em> –<br/>Бала Болашағы!</h1>
+  <p class="text-[clamp(0.95rem,2vw,1.15rem)] text-white/85 max-w-[560px] mx-auto mb-10">Әр баланың дамуына жол ашатын курстар бір орында. Тәжірибелі мамандар, заманауи әдістемелер, жеке тәсіл.</p>
+  <div class="flex gap-4 justify-center flex-wrap">
+    <a href="#courses" class="inline-flex items-center gap-2 bg-gold text-ink font-extrabold text-[0.95rem] px-8 py-3.5 rounded-full no-underline tracking-wide shadow-[0_4px_20px_rgba(201,168,76,0.4)] hover:bg-gold-light hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(201,168,76,0.5)] transition">✦ Курстарды қарау</a>
+    <a href="#contact" class="inline-flex items-center gap-2 bg-transparent text-white font-bold text-[0.95rem] px-8 py-3.5 rounded-full no-underline border-2 border-white/50 hover:border-white hover:bg-white/10 hover:-translate-y-0.5 transition">Жазылу</a>
   </div>
-  <div class="hero-stats">
-    <div class="stat"><strong>4–5</strong><span>жастан бастап</span></div>
-    <div class="stat"><strong>5+</strong><span>бағдарлама</span></div>
-    <div class="stat"><strong>100%</strong><span>нәтиже кепілдігі</span></div>
-    <div class="stat"><strong>1</strong><span>мекенжайда барлығы</span></div>
+  <div class="flex gap-10 max-sm:gap-6 justify-center flex-wrap mt-14 pt-12 border-t border-white/15">
+    <div class="text-center"><strong class="block text-3xl font-black text-gold-light leading-none">4–5</strong><span class="block text-xs text-white/70 font-medium tracking-wider uppercase mt-1">жастан бастап</span></div>
+    <div class="text-center"><strong class="block text-3xl font-black text-gold-light leading-none">5+</strong><span class="block text-xs text-white/70 font-medium tracking-wider uppercase mt-1">бағдарлама</span></div>
+    <div class="text-center"><strong class="block text-3xl font-black text-gold-light leading-none">100%</strong><span class="block text-xs text-white/70 font-medium tracking-wider uppercase mt-1">нәтиже кепілдігі</span></div>
+    <div class="text-center"><strong class="block text-3xl font-black text-gold-light leading-none">1</strong><span class="block text-xs text-white/70 font-medium tracking-wider uppercase mt-1">мекенжайда барлығы</span></div>
   </div>
 </section>
 
 <!-- ABOUT / CENTER OVERVIEW -->
-<section id="about">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about-text">
-        <div class="section-label">Орталық туралы</div>
-        <h2 class="section-title">Біздің бақша –<br/><span>Жылылық мекені</span></h2>
-        <p class="about-desc">
+<section id="about" class="bg-white px-8 py-20 max-sm:px-5 max-sm:py-14">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16 max-lg:gap-10 items-center">
+      <div>
+        <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold mb-3">Орталық туралы</div>
+        <h2 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black leading-tight text-crimson mb-4">Біздің бақша –<br/><span class="text-gold">Жылылық мекені</span></h2>
+        <p class="text-[0.95rem] text-muted leading-[1.75] mb-8">
           Балалар күн сайын жаңа нәрсе үйренеді. Біз тек білім беріп қана қоймаймыз — баланың жан дүниесін, шығармашылығын және өзіне деген сенімін дамытамыз. Мұнда әр бала ерекше!
         </p>
-        <div class="about-features">
-          <div class="about-feature">
-            <div class="about-feature-icon">💡</div>
-            <div class="about-feature-text">
-              <strong>Ойын арқылы даму</strong>
-              <span>Ойын арқылы ойлау, зейін және сөйлеу қабілеті дамиды</span>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-start gap-4 px-5 py-4 bg-cream border border-gold-pale rounded-2xl hover:shadow-brand hover:translate-x-1 transition">
+            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-crimson flex items-center justify-center text-lg text-white">💡</div>
+            <div>
+              <strong class="block text-[0.88rem] font-bold text-crimson mb-0.5">Ойын арқылы даму</strong>
+              <span class="text-[0.8rem] text-muted">Ойын арқылы ойлау, зейін және сөйлеу қабілеті дамиды</span>
             </div>
           </div>
-          <div class="about-feature">
-            <div class="about-feature-icon">🎵</div>
-            <div class="about-feature-text">
-              <strong>Билеу және ән айту</strong>
-              <span>Музыкалық қабілет пен ырғақ сезімін ерте жастан дамытамыз</span>
+          <div class="flex items-start gap-4 px-5 py-4 bg-cream border border-gold-pale rounded-2xl hover:shadow-brand hover:translate-x-1 transition">
+            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-crimson flex items-center justify-center text-lg text-white">🎵</div>
+            <div>
+              <strong class="block text-[0.88rem] font-bold text-crimson mb-0.5">Билеу және ән айту</strong>
+              <span class="text-[0.8rem] text-muted">Музыкалық қабілет пен ырғақ сезімін ерте жастан дамытамыз</span>
             </div>
           </div>
-          <div class="about-feature">
-            <div class="about-feature-icon">🗣️</div>
-            <div class="about-feature-text">
-              <strong>Логопед</strong>
-              <span>Кәсіби логопед — тіл дамытуда жекеше қолдау</span>
+          <div class="flex items-start gap-4 px-5 py-4 bg-cream border border-gold-pale rounded-2xl hover:shadow-brand hover:translate-x-1 transition">
+            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-crimson flex items-center justify-center text-lg text-white">🗣️</div>
+            <div>
+              <strong class="block text-[0.88rem] font-bold text-crimson mb-0.5">Логопед</strong>
+              <span class="text-[0.8rem] text-muted">Кәсіби логопед — тіл дамытуда жекеше қолдау</span>
             </div>
           </div>
-          <div class="about-feature">
-            <div class="about-feature-icon">⭐</div>
-            <div class="about-feature-text">
-              <strong>Әр күн – кішкентай жетістік</strong>
-              <span>Прогресті атап өтіп, баланың сенімділігін нығайтамыз</span>
+          <div class="flex items-start gap-4 px-5 py-4 bg-cream border border-gold-pale rounded-2xl hover:shadow-brand hover:translate-x-1 transition">
+            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-crimson flex items-center justify-center text-lg text-white">⭐</div>
+            <div>
+              <strong class="block text-[0.88rem] font-bold text-crimson mb-0.5">Әр күн – кішкентай жетістік</strong>
+              <span class="text-[0.8rem] text-muted">Прогресті атап өтіп, баланың сенімділігін нығайтамыз</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="about-visual">
-        <div class="about-stat-card">
-          <span class="asc-icon">🏡</span>
-          <span class="asc-num">Жылылық мекені</span>
-          <span class="asc-label">Балаларға арналған қауіпсіз орта</span>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 bg-gradient-to-br from-crimson-dark to-crimson-light text-white rounded-[18px] px-5 py-6 text-center hover:-translate-y-1 hover:shadow-brand transition">
+          <span class="block text-3xl mb-2">🏡</span>
+          <span class="block text-[2.2rem] font-black text-gold-light leading-none">Жылылық мекені</span>
+          <span class="block text-[0.72rem] text-white/80 font-semibold uppercase tracking-wider mt-1.5">Балаларға арналған қауіпсіз орта</span>
         </div>
-        <div class="about-stat-card">
-          <span class="asc-icon">👶</span>
-          <span class="asc-num">4–5</span>
-          <span class="asc-label">жас аралығы</span>
+        <div class="bg-cream border border-gold-pale rounded-[18px] px-5 py-6 text-center hover:-translate-y-1 hover:shadow-brand transition">
+          <span class="block text-3xl mb-2">👶</span>
+          <span class="block text-[2.2rem] font-black text-crimson leading-none">4–5</span>
+          <span class="block text-[0.72rem] text-muted font-semibold uppercase tracking-wider mt-1.5">жас аралығы</span>
         </div>
-        <div class="about-stat-card">
-          <span class="asc-icon">📅</span>
-          <span class="asc-num">5</span>
-          <span class="asc-label">күн аптасына</span>
+        <div class="bg-cream border border-gold-pale rounded-[18px] px-5 py-6 text-center hover:-translate-y-1 hover:shadow-brand transition">
+          <span class="block text-3xl mb-2">📅</span>
+          <span class="block text-[2.2rem] font-black text-crimson leading-none">5</span>
+          <span class="block text-[0.72rem] text-muted font-semibold uppercase tracking-wider mt-1.5">күн аптасына</span>
         </div>
-        <div class="about-stat-card">
-          <span class="asc-icon">🎓</span>
-          <span class="asc-num">100%</span>
-          <span class="asc-label">нәтижеге бағыт</span>
+        <div class="bg-cream border border-gold-pale rounded-[18px] px-5 py-6 text-center hover:-translate-y-1 hover:shadow-brand transition">
+          <span class="block text-3xl mb-2">🎓</span>
+          <span class="block text-[2.2rem] font-black text-crimson leading-none">100%</span>
+          <span class="block text-[0.72rem] text-muted font-semibold uppercase tracking-wider mt-1.5">нәтижеге бағыт</span>
         </div>
-        <div class="about-stat-card" style="grid-column: 1 / -1; background: var(--gold-pale); border-color: var(--gold);">
-          <p style="font-size:0.9rem; font-weight:700; color:var(--crimson); text-align:center; line-height:1.5;">
+        <div class="col-span-2 bg-gold-pale border border-gold rounded-[18px] px-5 py-6 text-center hover:-translate-y-1 hover:shadow-brand transition">
+          <p class="text-[0.9rem] font-bold text-crimson text-center leading-normal">
             ✦ Барлық курстар бір мекенжайда — Шұғыла ықшам ауданы ✦
           </p>
         </div>
@@ -143,116 +184,116 @@
 </section>
 
 <!-- COURSES -->
-<section id="courses">
-  <div class="container">
-    <div class="courses-intro">
-      <div class="section-label">Біздің бағдарламалар</div>
-      <h2 class="section-title">Барлық <span>курстар</span> бір орында</h2>
-      <p class="section-subtitle">Баланың жасы мен қажеттілігіне сай бағдарлама таңдаңыз — мамандарымыз әрқашан қолдайды.</p>
+<section id="courses" class="bg-cream px-8 py-20 max-sm:px-5 max-sm:py-14">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="mb-14">
+      <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold mb-3">Біздің бағдарламалар</div>
+      <h2 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black leading-tight text-crimson mb-4">Барлық <span class="text-gold">курстар</span> бір орында</h2>
+      <p class="text-base text-muted max-w-[520px]">Баланың жасы мен қажеттілігіне сай бағдарлама таңдаңыз — мамандарымыз әрқашан қолдайды.</p>
     </div>
 
-    <div class="courses-grid">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] max-sm:grid-cols-1 gap-7">
 
       <!-- SUMMER COURSE HIGHLIGHT -->
-      <div class="summer-block">
+      <div class="col-span-full bg-gradient-to-br from-crimson-dark to-[#A01E1E] rounded-3xl p-10 max-sm:p-6 text-white grid md:grid-cols-2 gap-8 items-center relative overflow-hidden after:content-['☀'] after:absolute after:right-12 after:top-1/2 after:-translate-y-1/2 after:text-[8rem] after:opacity-[0.06] after:pointer-events-none max-md:after:hidden">
         <div>
-          <div class="summer-badge">🌞 Жаңа!</div>
-          <h3>Жазғы <span>Даму Курсы</span></h3>
-          <p>Балаларыңыз тек демалып қана қоймай, білімін нығайтсын!<br/>1–4 сынып оқушыларына арналған.</p>
-          <p style="font-size:0.95rem; font-weight:700; color: var(--gold-light); margin-bottom:0.5rem;">Курс нәтижесі:</p>
-          <div class="summer-results">
-            <div class="summer-result">Оқу жылына дайын болады</div>
-            <div class="summer-result">Жазу, есептеу дағдылары жақсарады</div>
-            <div class="summer-result">Өзіне сенімділік артады</div>
+          <div class="inline-flex items-center gap-1.5 bg-gold text-ink text-[0.72rem] font-extrabold px-3.5 py-1 rounded-full tracking-[0.08em] uppercase mb-4">🌞 Жаңа!</div>
+          <h3 class="text-3xl font-black leading-[1.15] mb-3">Жазғы <span class="text-gold-light">Даму Курсы</span></h3>
+          <p class="text-[0.9rem] text-white/80 mb-6">Балаларыңыз тек демалып қана қоймай, білімін нығайтсын!<br/>1–4 сынып оқушыларына арналған.</p>
+          <p class="text-[0.95rem] font-bold text-gold-light mb-2">Курс нәтижесі:</p>
+          <div class="flex flex-col gap-2.5 mt-2">
+            <div class="summer-li flex items-start gap-2.5 text-[0.85rem] text-white/90">Оқу жылына дайын болады</div>
+            <div class="summer-li flex items-start gap-2.5 text-[0.85rem] text-white/90">Жазу, есептеу дағдылары жақсарады</div>
+            <div class="summer-li flex items-start gap-2.5 text-[0.85rem] text-white/90">Өзіне сенімділік артады</div>
           </div>
-          <div style="margin-top:1.75rem;">
-            <a href="#contact" class="btn-primary" style="font-size:0.85rem;">Жазылу →</a>
+          <div class="mt-7">
+            <a href="#contact" class="inline-flex items-center gap-2 bg-gold text-ink font-extrabold text-[0.85rem] px-8 py-3.5 rounded-full no-underline tracking-wide shadow-[0_4px_20px_rgba(201,168,76,0.4)] hover:bg-gold-light hover:-translate-y-0.5 transition">Жазылу →</a>
           </div>
         </div>
-        <div class="summer-subjects">
-          <p style="font-size:0.8rem; color:rgba(255,255,255,0.6); letter-spacing:0.1em; text-transform:uppercase; font-weight:700; margin-bottom:0.25rem;">Пәндер</p>
-          <div class="summer-subject">
-            <strong>🇰🇿 Қазақ тілі</strong>
-            <span>Сауатты жазу, диктант, сөз таптары</span>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.8rem] text-white/60 tracking-[0.1em] uppercase font-bold mb-1">Пәндер</p>
+          <div class="bg-white/10 border border-white/15 rounded-xl px-4 py-3.5">
+            <strong class="block text-[0.9rem] text-gold-light font-bold mb-1">🇰🇿 Қазақ тілі</strong>
+            <span class="text-[0.78rem] text-white/75">Сауатты жазу, диктант, сөз таптары</span>
           </div>
-          <div class="summer-subject">
-            <strong>📐 Математика</strong>
-            <span>Есеп шығару, қосу, бөлу, логика</span>
+          <div class="bg-white/10 border border-white/15 rounded-xl px-4 py-3.5">
+            <strong class="block text-[0.9rem] text-gold-light font-bold mb-1">📐 Математика</strong>
+            <span class="text-[0.78rem] text-white/75">Есеп шығару, қосу, бөлу, логика</span>
           </div>
-          <div style="margin-top:0.5rem; padding:1rem; background:rgba(201,168,76,0.15); border-radius:12px; border:1px solid rgba(201,168,76,0.3);">
-            <p style="font-size:0.9rem; font-weight:700; color:var(--gold-light); text-align:center;">ЖАЗДА – ДЕМАЛЫС ПЕН ДАМУ БІРГЕ!</p>
+          <div class="mt-2 p-4 bg-gold/15 rounded-xl border border-gold/30">
+            <p class="text-[0.9rem] font-bold text-gold-light text-center">ЖАЗДА – ДЕМАЛЫС ПЕН ДАМУ БІРГЕ!</p>
           </div>
         </div>
       </div>
 
       <!-- SCHOOL PREP -->
-      <div class="course-card">
-        <div class="card-header">
-          <div class="card-icon gold">🎒</div>
-          <div class="card-meta">
-            <div class="card-age">Экспресс курс</div>
-            <div class="card-title">Мектепке Дайындық</div>
-            <div class="card-subtitle">Жан-жақты дайындық бағдарламасы</div>
+      <div class="course-card bg-cream rounded-[20px] overflow-hidden border border-gold-pale hover:-translate-y-1.5 hover:shadow-brand-lg transition flex flex-col">
+        <div class="px-7 pt-7 pb-5 flex items-start gap-4">
+          <div class="w-[52px] h-[52px] flex-shrink-0 rounded-2xl flex items-center justify-center text-2xl bg-gradient-to-br from-gold to-gold-light text-ink">🎒</div>
+          <div class="flex-1">
+            <div class="inline-block bg-gold-pale text-crimson text-[0.7rem] font-bold px-2.5 py-0.5 rounded-full mb-2 tracking-wider">Экспресс курс</div>
+            <div class="text-[1.15rem] font-extrabold text-crimson leading-tight">Мектепке Дайындық</div>
+            <div class="text-[0.78rem] text-muted mt-0.5 italic">Жан-жақты дайындық бағдарламасы</div>
           </div>
         </div>
-        <div class="card-body">
-          <p class="card-desc">Баланы мектепке жан-жақты дайындайтын кешенді экспресс бағдарлама.</p>
-          <ul class="feature-list">
-            <li>Математика + логика</li>
-            <li>Жазу (каллиграфия)</li>
-            <li>Жылдам оқу</li>
-            <li>Қоршаған ортамен танысу</li>
-            <li>Сөйлеуді дамыту</li>
-            <li>Шығармашылық жұмыстар</li>
-            <li>Аппликация, сурет салу, мүсіндеу, құрастыру</li>
+        <div class="px-7 pb-7 flex-1 flex flex-col gap-3">
+          <p class="text-[0.85rem] text-muted">Баланы мектепке жан-жақты дайындайтын кешенді экспресс бағдарлама.</p>
+          <ul class="list-none flex flex-col gap-[0.45rem]">
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Математика + логика</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Жазу (каллиграфия)</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Жылдам оқу</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Қоршаған ортамен танысу</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Сөйлеуді дамыту</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Шығармашылық жұмыстар</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Аппликация, сурет салу, мүсіндеу, құрастыру</li>
           </ul>
-          <span class="card-tag">Мектепке дейін</span>
+          <span class="inline-block bg-crimson/10 text-crimson text-[0.72rem] font-bold px-3 py-1 rounded-full mt-auto self-start">Мектепке дейін</span>
         </div>
       </div>
 
       <!-- CALLIGRAPHY -->
-      <div class="course-card">
-        <div class="card-header">
-          <div class="card-icon">✒️</div>
-          <div class="card-meta">
-            <div class="card-age">Барлық жас</div>
-            <div class="card-title">Әдемі Жазу Курсы</div>
-            <div class="card-subtitle">Көркем жазу – мінездің көркі!</div>
+      <div class="course-card bg-cream rounded-[20px] overflow-hidden border border-gold-pale hover:-translate-y-1.5 hover:shadow-brand-lg transition flex flex-col">
+        <div class="px-7 pt-7 pb-5 flex items-start gap-4">
+          <div class="w-[52px] h-[52px] flex-shrink-0 rounded-2xl flex items-center justify-center text-2xl bg-crimson text-white">✒️</div>
+          <div class="flex-1">
+            <div class="inline-block bg-gold-pale text-crimson text-[0.7rem] font-bold px-2.5 py-0.5 rounded-full mb-2 tracking-wider">Барлық жас</div>
+            <div class="text-[1.15rem] font-extrabold text-crimson leading-tight">Әдемі Жазу Курсы</div>
+            <div class="text-[0.78rem] text-muted mt-0.5 italic">Көркем жазу – мінездің көркі!</div>
           </div>
         </div>
-        <div class="card-body">
-          <p class="card-desc">Қолжазуды түзетіп, әдемі жазуды меңгертетін арнайы бағдарлама.</p>
-          <ul class="feature-list">
-            <li>Каллиграфия негіздері — қолды дұрыс ұстау, әріп элементтері</li>
-            <li>Кирилл әріптерін дұрыс байланыстыру</li>
-            <li>Тазалық пен сауаттылық — қолтаңба, мәтін жазу</li>
-            <li>Шығармашылық безендіру жұмыстары</li>
+        <div class="px-7 pb-7 flex-1 flex flex-col gap-3">
+          <p class="text-[0.85rem] text-muted">Қолжазуды түзетіп, әдемі жазуды меңгертетін арнайы бағдарлама.</p>
+          <ul class="list-none flex flex-col gap-[0.45rem]">
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Каллиграфия негіздері — қолды дұрыс ұстау, әріп элементтері</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Кирилл әріптерін дұрыс байланыстыру</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Тазалық пен сауаттылық — қолтаңба, мәтін жазу</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Шығармашылық безендіру жұмыстары</li>
           </ul>
-          <p style="font-size:0.78rem; color:var(--gold); font-weight:700; margin-top:0.5rem;">
+          <p class="text-[0.78rem] text-gold font-bold mt-2">
             ✦ Мектепте, емтиханда, күнделікті өмірде пайдасы зор
           </p>
-          <span class="card-tag">Жазу мәдениеті</span>
+          <span class="inline-block bg-crimson/10 text-crimson text-[0.72rem] font-bold px-3 py-1 rounded-full mt-auto self-start">Жазу мәдениеті</span>
         </div>
       </div>
 
       <!-- FAST READING -->
-      <div class="course-card">
-        <div class="card-header">
-          <div class="card-icon dark">📖</div>
-          <div class="card-meta">
-            <div class="card-age">Мектеп жасы</div>
-            <div class="card-title">Жылдам Оқу</div>
-            <div class="card-subtitle">Жылдам оқу – жарқын болашақ</div>
+      <div class="course-card bg-cream rounded-[20px] overflow-hidden border border-gold-pale hover:-translate-y-1.5 hover:shadow-brand-lg transition flex flex-col">
+        <div class="px-7 pt-7 pb-5 flex items-start gap-4">
+          <div class="w-[52px] h-[52px] flex-shrink-0 rounded-2xl flex items-center justify-center text-2xl bg-ink text-gold-light">📖</div>
+          <div class="flex-1">
+            <div class="inline-block bg-gold-pale text-crimson text-[0.7rem] font-bold px-2.5 py-0.5 rounded-full mb-2 tracking-wider">Мектеп жасы</div>
+            <div class="text-[1.15rem] font-extrabold text-crimson leading-tight">Жылдам Оқу</div>
+            <div class="text-[0.78rem] text-muted mt-0.5 italic">Жылдам оқу – жарқын болашақ</div>
           </div>
         </div>
-        <div class="card-body">
-          <p class="card-desc">Оқу жылдамдығы мен мазмұнды түсінуді арттыратын тиімді бағдарлама.</p>
-          <ul class="feature-list">
-            <li>Оқу жылдамдығын арттырамыз</li>
-            <li>Түсініп оқу дағдысын қалыптастырамыз</li>
-            <li>Зейін мен есте сақтау қабілетін жақсартамыз</li>
+        <div class="px-7 pb-7 flex-1 flex flex-col gap-3">
+          <p class="text-[0.85rem] text-muted">Оқу жылдамдығы мен мазмұнды түсінуді арттыратын тиімді бағдарлама.</p>
+          <ul class="list-none flex flex-col gap-[0.45rem]">
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Оқу жылдамдығын арттырамыз</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Түсініп оқу дағдысын қалыптастырамыз</li>
+            <li class="feature-li flex items-start gap-2 text-[0.83rem] text-body font-medium">Зейін мен есте сақтау қабілетін жақсартамыз</li>
           </ul>
-          <span class="card-tag">Академиялық дамыту</span>
+          <span class="inline-block bg-crimson/10 text-crimson text-[0.72rem] font-bold px-3 py-1 rounded-full mt-auto self-start">Академиялық дамыту</span>
         </div>
       </div>
 
@@ -261,87 +302,87 @@
 </section>
 
 <!-- WHY US -->
-<section id="why">
-  <div class="container">
-    <div style="text-align:center; max-width:600px; margin:0 auto;">
-      <div class="section-label">Неліктен Ару-Наз?</div>
-      <h2 class="section-title">Балаңызға ең <span>жақсысын</span> таңдаңыз</h2>
-      <p class="section-subtitle" style="max-width:100%;">Біз тек нәтижеге ғана емес, баланың өзіне деген сенімділігін арттыруға назар аударамыз.</p>
+<section id="why" class="bg-cream px-8 py-20 max-sm:px-5 max-sm:py-14">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="text-center max-w-[600px] mx-auto">
+      <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold mb-3">Неліктен Ару-Наз?</div>
+      <h2 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black leading-tight text-crimson mb-4">Балаңызға ең <span class="text-gold">жақсысын</span> таңдаңыз</h2>
+      <p class="text-base text-muted">Біз тек нәтижеге ғана емес, баланың өзіне деген сенімділігін арттыруға назар аударамыз.</p>
     </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">👩‍🏫</div>
-        <h4>Тәжірибелі мамандар</h4>
-        <p>Жоғары білімді, балаларды жақсы көретін ұстаздар команда</p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] max-sm:grid-cols-2 max-[400px]:grid-cols-1 gap-6 mt-12">
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">👩‍🏫</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Тәжірибелі мамандар</h4>
+        <p class="text-[0.82rem] text-muted">Жоғары білімді, балаларды жақсы көретін ұстаздар команда</p>
       </div>
-      <div class="why-card">
-        <div class="why-icon">📚</div>
-        <h4>Заманауи әдістемелер</h4>
-        <p>Ең тиімді оқыту технологиялары мен инновациялық тәсілдер</p>
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">📚</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Заманауи әдістемелер</h4>
+        <p class="text-[0.82rem] text-muted">Ең тиімді оқыту технологиялары мен инновациялық тәсілдер</p>
       </div>
-      <div class="why-card">
-        <div class="why-icon">🤝</div>
-        <h4>Жеке тәсіл мен қолдау</h4>
-        <p>Әр баланың жеке ерекшелігін ескеріп, мамандандырылған бағдарлама</p>
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">🤝</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Жеке тәсіл мен қолдау</h4>
+        <p class="text-[0.82rem] text-muted">Әр баланың жеке ерекшелігін ескеріп, мамандандырылған бағдарлама</p>
       </div>
-      <div class="why-card">
-        <div class="why-icon">🛡️</div>
-        <h4>Қауіпсіз орта</h4>
-        <p>Баланың физикалық және эмоциялық қауіпсіздігі — біздің басты назарымыз</p>
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">🛡️</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Қауіпсіз орта</h4>
+        <p class="text-[0.82rem] text-muted">Баланың физикалық және эмоциялық қауіпсіздігі — біздің басты назарымыз</p>
       </div>
-      <div class="why-card">
-        <div class="why-icon">🏆</div>
-        <h4>Шынайы нәтиже</h4>
-        <p>Оқу барысындағы прогресс ата-аналарға үнемі хабарланады</p>
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">🏆</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Шынайы нәтиже</h4>
+        <p class="text-[0.82rem] text-muted">Оқу барысындағы прогресс ата-аналарға үнемі хабарланады</p>
       </div>
-      <div class="why-card">
-        <div class="why-icon">📍</div>
-        <h4>Бір мекенжайда барлығы</h4>
-        <p>Барлық курстар Шұғылада бір ғимаратта — уақытыңызды үнемдейді</p>
+      <div class="why-card bg-white rounded-[18px] px-6 py-8 text-center border border-gold-pale hover:-translate-y-1 hover:shadow-brand transition">
+        <div class="w-16 h-16 rounded-[18px] bg-gradient-to-br from-crimson to-crimson-light flex items-center justify-center text-3xl mx-auto mb-5">📍</div>
+        <h4 class="text-base font-extrabold text-crimson mb-2">Бір мекенжайда барлығы</h4>
+        <p class="text-[0.82rem] text-muted">Барлық курстар Шұғылада бір ғимаратта — уақытыңызды үнемдейді</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- DANCE -->
-<section id="dance">
-  <div class="container">
-    <div class="dance-inner">
+<section id="dance" class="bg-gradient-to-br from-[#0D0D0D] to-[#1A0A0A] text-white relative overflow-hidden px-8 py-20 max-sm:px-5 max-sm:py-14 before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:[background:radial-gradient(ellipse_at_70%_50%,rgba(201,168,76,0.12)_0%,transparent_70%),radial-gradient(ellipse_at_30%_50%,rgba(139,26,26,0.3)_0%,transparent_60%)]">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="relative z-[1] grid lg:grid-cols-2 gap-16 max-lg:gap-8 items-center">
       <div>
-        <div class="section-label" style="color:rgba(201,168,76,0.8);">Би студиясы</div>
-        <div class="dance-heading">
-          <span class="aru-naz">Aru-Naz</span>
+        <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold/80 mb-3">Би студиясы</div>
+        <div class="text-[clamp(2rem,5vw,3.5rem)] font-black leading-[1.1]">
+          <span class="font-display text-gold-light text-[clamp(2.5rem,6vw,4.5rem)] block">Aru-Naz</span>
           ТАНЦУЙ.<br/>ВЫРАЖАЙСЯ.<br/>БУДЬ СОБОЙ!
         </div>
-        <p class="dance-tagline">Өзіңді таны · Шығармашылыққа жол аш</p>
-        <div class="dance-cta-wrap">
-          <a href="#contact" class="btn-primary">Тіркелу →</a>
+        <p class="text-[0.85rem] tracking-[0.18em] uppercase text-white/50 mt-2 mb-8">Өзіңді таны · Шығармашылыққа жол аш</p>
+        <div class="mt-8">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-gold text-ink font-extrabold text-[0.95rem] px-8 py-3.5 rounded-full no-underline tracking-wide shadow-[0_4px_20px_rgba(201,168,76,0.4)] hover:bg-gold-light hover:-translate-y-0.5 transition">Тіркелу →</a>
         </div>
       </div>
-      <div class="dance-styles">
-        <div class="dance-style">
-          <div class="dance-style-icon ds-kpop">💃</div>
-          <div class="dance-style-info">
-            <strong>K-POP</strong>
-            <span>Почувствуй ритм поп-культуры — корейские хиты и энергия сцены</span>
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4 bg-white/5 border border-gold/20 rounded-2xl px-5 py-4 hover:bg-gold/10 hover:border-gold/40 transition">
+          <div class="w-11 h-11 flex-shrink-0 rounded-xl flex items-center justify-center text-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ee5a24]">💃</div>
+          <div>
+            <strong class="block text-[0.95rem] font-extrabold text-gold-light">K-POP</strong>
+            <span class="text-[0.78rem] text-white/60">Почувствуй ритм поп-культуры — корейские хиты и энергия сцены</span>
           </div>
         </div>
-        <div class="dance-style">
-          <div class="dance-style-icon ds-all">🌟</div>
-          <div class="dance-style-info">
-            <strong>ALL STYLES</strong>
-            <span>Разные стили – одна страсть: хип-хоп, контемп, джаз и многое другое</span>
+        <div class="flex items-center gap-4 bg-white/5 border border-gold/20 rounded-2xl px-5 py-4 hover:bg-gold/10 hover:border-gold/40 transition">
+          <div class="w-11 h-11 flex-shrink-0 rounded-xl flex items-center justify-center text-2xl bg-gradient-to-br from-gold to-gold-light">🌟</div>
+          <div>
+            <strong class="block text-[0.95rem] font-extrabold text-gold-light">ALL STYLES</strong>
+            <span class="text-[0.78rem] text-white/60">Разные стили – одна страсть: хип-хоп, контемп, джаз и многое другое</span>
           </div>
         </div>
-        <div class="dance-style">
-          <div class="dance-style-icon ds-zumba">⚡</div>
-          <div class="dance-style-info">
-            <strong>ZUMBA</strong>
-            <span>Энергия, движение, отличное настроение — для всех уровней</span>
+        <div class="flex items-center gap-4 bg-white/5 border border-gold/20 rounded-2xl px-5 py-4 hover:bg-gold/10 hover:border-gold/40 transition">
+          <div class="w-11 h-11 flex-shrink-0 rounded-xl flex items-center justify-center text-2xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe]">⚡</div>
+          <div>
+            <strong class="block text-[0.95rem] font-extrabold text-gold-light">ZUMBA</strong>
+            <span class="text-[0.78rem] text-white/60">Энергия, движение, отличное настроение — для всех уровней</span>
           </div>
         </div>
-        <div style="padding:1.25rem; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); border-radius:14px; margin-top:0.5rem;">
-          <p style="font-size:0.85rem; color:rgba(255,255,255,0.8); line-height:1.6;">
+        <div class="p-5 bg-gold/10 border border-gold/30 rounded-2xl mt-2">
+          <p class="text-[0.85rem] text-white/80 leading-relaxed">
             Би — бұл тек қозғалыс емес, өзін-өзі таныту жолы. Біздің студияда баланың таланты ашылады!
           </p>
         </div>
@@ -351,43 +392,43 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="container">
-    <div style="text-align:center; max-width:600px; margin:0 auto 0;">
-      <div class="section-label">Ата-аналар пікірі</div>
-      <h2 class="section-title">Олар бізге <span>сенді</span></h2>
+<section id="testimonials" class="bg-white px-8 py-20 max-sm:px-5 max-sm:py-14">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="text-center max-w-[600px] mx-auto">
+      <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold mb-3">Ата-аналар пікірі</div>
+      <h2 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black leading-tight text-crimson mb-4">Олар бізге <span class="text-gold">сенді</span></h2>
     </div>
-    <div class="testimonials-grid">
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">Қызым мектепке дайындық курсынан өтті — бірінші сыныпқа барғанда барлық тапсырмаларды ең алдымен орындайды. Ұстаздарға өте ризамыз, жеке тәсілі сезіліп тұрады.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">А</div>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 mt-12">
+      <div class="testimonial bg-cream rounded-[18px] p-7 border border-gold-pale relative before:content-['\0022'] before:absolute before:top-4 before:right-6 before:text-6xl before:text-gold-pale before:font-display before:leading-none">
+        <div class="text-gold text-xs tracking-[1px] mb-1">★★★★★</div>
+        <p class="text-[0.88rem] text-body leading-[1.65] mb-5 italic">Қызым мектепке дайындық курсынан өтті — бірінші сыныпқа барғанда барлық тапсырмаларды ең алдымен орындайды. Ұстаздарға өте ризамыз, жеке тәсілі сезіліп тұрады.</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-white font-extrabold text-[0.9rem]">А</div>
           <div>
-            <div class="author-name">Айгерім, 2 баланың анасы</div>
-            <div class="author-role">Мектепке дайындық курсы</div>
+            <div class="text-[0.85rem] font-bold text-crimson">Айгерім, 2 баланың анасы</div>
+            <div class="text-[0.72rem] text-muted">Мектепке дайындық курсы</div>
           </div>
         </div>
       </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">Ұлым K-POP бишілігіне барып, мүлдем басқа бала болды — сенімді, жайдары. Ежелдегі ұялшақтығы жоғалып кетті. Студия үшін рахмет!</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">Н</div>
+      <div class="testimonial bg-cream rounded-[18px] p-7 border border-gold-pale relative before:content-['\0022'] before:absolute before:top-4 before:right-6 before:text-6xl before:text-gold-pale before:font-display before:leading-none">
+        <div class="text-gold text-xs tracking-[1px] mb-1">★★★★★</div>
+        <p class="text-[0.88rem] text-body leading-[1.65] mb-5 italic">Ұлым K-POP бишілігіне барып, мүлдем басқа бала болды — сенімді, жайдары. Ежелдегі ұялшақтығы жоғалып кетті. Студия үшін рахмет!</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-white font-extrabold text-[0.9rem]">Н</div>
           <div>
-            <div class="author-name">Нұрзат, Алматы</div>
-            <div class="author-role">Би студиясы, K-POP</div>
+            <div class="text-[0.85rem] font-bold text-crimson">Нұрзат, Алматы</div>
+            <div class="text-[0.72rem] text-muted">Би студиясы, K-POP</div>
           </div>
         </div>
       </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">Каллиграфия курсы керемет! Баланың қол жазуы екі ай ішінде мүлдем өзгерді. Ұстазы өте шыдамды, жекеше ескертулер береді.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">З</div>
+      <div class="testimonial bg-cream rounded-[18px] p-7 border border-gold-pale relative before:content-['\0022'] before:absolute before:top-4 before:right-6 before:text-6xl before:text-gold-pale before:font-display before:leading-none">
+        <div class="text-gold text-xs tracking-[1px] mb-1">★★★★★</div>
+        <p class="text-[0.88rem] text-body leading-[1.65] mb-5 italic">Каллиграфия курсы керемет! Баланың қол жазуы екі ай ішінде мүлдем өзгерді. Ұстазы өте шыдамды, жекеше ескертулер береді.</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center text-white font-extrabold text-[0.9rem]">З</div>
           <div>
-            <div class="author-name">Замира, Шұғыла ауданы</div>
-            <div class="author-role">Каллиграфия курсы</div>
+            <div class="text-[0.85rem] font-bold text-crimson">Замира, Шұғыла ауданы</div>
+            <div class="text-[0.72rem] text-muted">Каллиграфия курсы</div>
           </div>
         </div>
       </div>
@@ -396,40 +437,41 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-inner">
+<section id="contact" class="bg-gradient-to-br from-crimson-dark to-[#A01E1E] text-white px-8 py-20 max-sm:px-5 max-sm:py-14">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16 max-lg:gap-8 items-start">
       <div>
-        <div class="section-label" style="color:rgba(201,168,76,0.8);">Байланыс</div>
-        <h2 class="section-title">Балаңызды қосыңыз!<br/><span>Болашағы жарқын болсын!</span></h2>
-        <p class="section-subtitle">Барлық курстар бір мекенжайда. Сізге ыңғайлы уақытта келіңіз немесе қоңырау шалыңыз.</p>
+        <div class="text-[0.72rem] font-bold tracking-[0.15em] uppercase text-gold/80 mb-3">Байланыс</div>
+        <h2 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black leading-tight text-white mb-4">Балаңызды қосыңыз!<br/><span class="text-gold">Болашағы жарқын болсын!</span></h2>
+        <p class="text-base text-white/75">Барлық курстар бір мекенжайда. Сізге ыңғайлы уақытта келіңіз немесе қоңырау шалыңыз.</p>
 
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-item-text">
-              <strong>Телефон</strong>
-              <a href="tel:87476620340">8 747 662 03 40</a>
+        <div class="flex flex-col gap-5 mt-8">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 flex-shrink-0 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-xl">📞</div>
+            <div>
+              <strong class="block text-[0.8rem] text-white/60 font-semibold tracking-wider uppercase mb-1">Телефон</strong>
+              <a class="text-base font-bold text-white no-underline hover:text-gold-light transition-colors" href="tel:87476620340">8 747 662 03 40</a>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-item-text">
-              <strong>Мекенжай</strong>
-              <p>Алматы қ., Наурызбай ауданы,<br/>Шұғыла ықшам ауданы,<br/>340/4 үй, 4 корпус, н.п. 137</p>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 flex-shrink-0 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-xl">📍</div>
+            <div>
+              <strong class="block text-[0.8rem] text-white/60 font-semibold tracking-wider uppercase mb-1">Мекенжай</strong>
+              <p class="text-base font-bold text-white">Алматы қ., Наурызбай ауданы,<br/>Шұғыла ықшам ауданы,<br/>340/4 үй, 4 корпус, н.п. 137</p>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div class="contact-item-text">
-              <strong>Жұмыс уақыты</strong>
-              <p>Дс–Жм: 09:00–19:00<br/>Сб: 09:00–16:00</p>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 flex-shrink-0 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-xl">🕐</div>
+            <div>
+              <strong class="block text-[0.8rem] text-white/60 font-semibold tracking-wider uppercase mb-1">Жұмыс уақыты</strong>
+              <p class="text-base font-bold text-white">Дс–Жм: 09:00–19:00<br/>Сб: 09:00–16:00</p>
             </div>
           </div>
         </div>
 
-        <div class="map-wrap">
+        <div class="mt-6 rounded-2xl overflow-hidden border-2 border-white/20">
           <iframe
+            class="w-full h-[200px] block [filter:grayscale(0.2)]"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.0!2d76.8!3d43.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDEyJzAwLjAiTiA3NsKwNDgnMDAuMCJF!5e0!3m2!1skk!2skz!4v1600000000000"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             title="Ару-Наз мекенжайы картада">
@@ -437,18 +479,18 @@
         </div>
       </div>
 
-      <div class="contact-form">
-        <h3>✦ Тіркелу формасы</h3>
-        <form id="signup-form" onsubmit="handleSubmit(event)">
-          <div class="form-group">
+      <div class="bg-white/[0.07] border border-white/15 rounded-[20px] p-8 max-sm:p-5">
+        <h3 class="text-[1.15rem] font-extrabold mb-6 text-gold-light">✦ Тіркелу формасы</h3>
+        <form id="signup-form" onsubmit="handleSubmit(event)" class="[&_label]:block [&_label]:text-xs [&_label]:font-semibold [&_label]:text-white/70 [&_label]:mb-1.5 [&_label]:tracking-wider [&_label]:uppercase [&_input]:w-full [&_input]:bg-white/10 [&_input]:border [&_input]:border-white/20 [&_input]:rounded-[10px] [&_input]:px-4 [&_input]:py-3 [&_input]:text-[0.9rem] [&_input]:text-white [&_input]:outline-none [&_input]:transition [&_input:focus]:border-gold [&_input:focus]:bg-white/15 [&_input::placeholder]:text-white/40 [&_select]:w-full [&_select]:bg-white/10 [&_select]:border [&_select]:border-white/20 [&_select]:rounded-[10px] [&_select]:px-4 [&_select]:py-3 [&_select]:text-[0.9rem] [&_select]:text-white [&_select]:outline-none [&_select:focus]:border-gold [&_option]:bg-crimson-dark [&_option]:text-white [&_textarea]:w-full [&_textarea]:bg-white/10 [&_textarea]:border [&_textarea]:border-white/20 [&_textarea]:rounded-[10px] [&_textarea]:px-4 [&_textarea]:py-3 [&_textarea]:text-[0.9rem] [&_textarea]:text-white [&_textarea]:outline-none [&_textarea]:resize-y [&_textarea]:min-h-[90px] [&_textarea:focus]:border-gold [&_textarea:focus]:bg-white/15 [&_textarea::placeholder]:text-white/40">
+          <div class="mb-4">
             <label>Баланың аты-жөні</label>
             <input type="text" placeholder="Мысалы: Айару Сейіт" required />
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>Баланың жасы</label>
             <input type="number" placeholder="Мысалы: 6" min="3" max="18" required />
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>Курс таңдау</label>
             <select required>
               <option value="" disabled selected>Курсты таңдаңыз...</option>
@@ -462,22 +504,22 @@
               <option>Би студиясы – Zumba</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>Телефон нөміріңіз</label>
             <input type="tel" placeholder="+7 (___) ___-__-__" required />
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>Қосымша сұрақ (міндетті емес)</label>
             <textarea placeholder="Сұрақтарыңызды жазыңыз..."></textarea>
           </div>
-          <button type="submit" class="btn-submit">Жазылу сұранымын жіберу →</button>
+          <button type="submit" class="w-full bg-gold text-ink border-none py-3.5 rounded-full text-[0.95rem] font-extrabold cursor-pointer font-sans tracking-wide hover:bg-gold-light hover:-translate-y-0.5 transition">Жазылу сұранымын жіберу →</button>
         </form>
-        <div id="form-success" style="display:none; text-align:center; padding:2rem; color:var(--gold-light);">
-          <div style="font-size:2.5rem; margin-bottom:1rem;">✓</div>
-          <p style="font-weight:700; font-size:1rem; margin-bottom:0.5rem;">Сәтті жіберілді!</p>
-          <p style="font-size:0.85rem; color:rgba(255,255,255,0.7);">Біз жақын арада хабарласамыз. Рахмет!</p>
+        <div id="form-success" class="hidden text-center p-8 text-gold-light">
+          <div class="text-4xl mb-4">✓</div>
+          <p class="font-bold text-base mb-2">Сәтті жіберілді!</p>
+          <p class="text-[0.85rem] text-white/70">Біз жақын арада хабарласамыз. Рахмет!</p>
         </div>
-        <p style="font-size:0.72rem; color:rgba(255,255,255,0.45); text-align:center; margin-top:1rem;">
+        <p class="text-[0.72rem] text-white/45 text-center mt-4">
           Деректеріңіз үшінші тарапқа берілмейді
         </p>
       </div>
@@ -486,27 +528,27 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <img src="Logo_Aru_Naz.png" alt="Ару-Наз" />
-      <strong>Aru-Naz</strong>
+<footer class="bg-ink text-white/60 px-8 py-10 text-center">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="flex items-center justify-center gap-2.5 mb-4">
+      <img src="Logo_Aru_Naz.png" alt="Ару-Наз" class="h-11 brightness-0 invert opacity-80" />
+      <strong class="text-lg font-extrabold text-gold-light">Aru-Naz</strong>
     </div>
-    <div class="footer-links">
-      <a href="#about">Орталық</a>
-      <a href="#courses">Курстар</a>
-      <a href="#dance">Би студиясы</a>
-      <a href="#why">Неліктен біз?</a>
-      <a href="#contact">Байланыс</a>
-      <a href="tel:87476620340">87476620340</a>
+    <div class="flex gap-6 justify-center flex-wrap my-4">
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="#about">Орталық</a>
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="#courses">Курстар</a>
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="#dance">Би студиясы</a>
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="#why">Неліктен біз?</a>
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="#contact">Байланыс</a>
+      <a class="text-white/50 no-underline text-[0.78rem] hover:text-gold-light transition-colors" href="tel:87476620340">87476620340</a>
     </div>
-    <p>Алматы қ., Наурызбай ауданы, Шұғыла ықшам ауданы, 340/4 үй, 4 корпус, н.п. 137</p>
-    <p style="margin-top:0.5rem; font-size:0.72rem; color:rgba(255,255,255,0.35);">© 2025 Ару-Наз білім орталығы. Барлық құқықтар қорғалған.</p>
+    <p class="text-[0.78rem]">Алматы қ., Наурызбай ауданы, Шұғыла ықшам ауданы, 340/4 үй, 4 корпус, н.п. 137</p>
+    <p class="mt-2 text-[0.72rem] text-white/35">© 2025 Ару-Наз білім орталығы. Барлық құқықтар қорғалған.</p>
   </div>
 </footer>
 
 <!-- FLOATING CALL BUTTON -->
-<a href="tel:87476620340" class="phone-float" title="Қоңырау шалу" aria-label="Телефон">📞</a>
+<a href="tel:87476620340" class="animate-pulse-ring fixed bottom-8 right-8 max-sm:bottom-5 max-sm:right-5 z-[200] bg-crimson text-white w-[60px] h-[60px] max-sm:w-[52px] max-sm:h-[52px] rounded-full flex items-center justify-center text-2xl max-sm:text-xl no-underline hover:bg-crimson-dark hover:scale-110 hover:animate-none transition" title="Қоңырау шалу" aria-label="Телефон">📞</a>
 
 <script>
   function openMobileMenu() {
