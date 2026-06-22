@@ -503,15 +503,15 @@
         <form id="signup-form" onsubmit="handleSubmit(event)" class="[&_label]:block [&_label]:text-[0.82rem] [&_label]:font-bold [&_label]:text-body [&_label]:mb-1.5 [&_input]:w-full [&_input]:bg-cream [&_input]:border-2 [&_input]:border-gold-pale [&_input]:rounded-[10px] [&_input]:px-4 [&_input]:py-3 [&_input]:text-[0.95rem] [&_input]:text-body [&_input]:font-medium [&_input]:outline-none [&_input]:transition [&_input:focus]:border-crimson [&_input:focus]:bg-white [&_input::placeholder]:text-muted/60 [&_select]:w-full [&_select]:bg-cream [&_select]:border-2 [&_select]:border-gold-pale [&_select]:rounded-[10px] [&_select]:px-4 [&_select]:py-3 [&_select]:text-[0.95rem] [&_select]:text-body [&_select]:font-medium [&_select]:outline-none [&_select:focus]:border-crimson [&_select:focus]:bg-white [&_option]:bg-white [&_option]:text-body [&_textarea]:w-full [&_textarea]:bg-cream [&_textarea]:border-2 [&_textarea]:border-gold-pale [&_textarea]:rounded-[10px] [&_textarea]:px-4 [&_textarea]:py-3 [&_textarea]:text-[0.95rem] [&_textarea]:text-body [&_textarea]:font-medium [&_textarea]:outline-none [&_textarea]:resize-y [&_textarea]:min-h-[90px] [&_textarea:focus]:border-crimson [&_textarea:focus]:bg-white [&_textarea::placeholder]:text-muted/60">
           <div class="mb-5">
             <label>Баланың аты-жөні</label>
-            <input type="text" placeholder="Мысалы: Айару Сейіт" required />
+            <input type="text" name="name" placeholder="Мысалы: Айару Сейіт" required />
           </div>
           <div class="mb-5">
             <label>Баланың жасы</label>
-            <input type="number" placeholder="Мысалы: 6" min="3" max="18" required />
+            <input type="number" name="age" placeholder="Мысалы: 6" min="3" max="18" required />
           </div>
           <div class="mb-5">
             <label>Курс таңдау</label>
-            <select required>
+            <select name="course" required>
               <option value="" disabled selected>Курсты таңдаңыз...</option>
               <option>Біздің Бақша (4–5 жас)</option>
               <option>Жазғы Даму Курсы (1–4 сынып)</option>
@@ -525,13 +525,14 @@
           </div>
           <div class="mb-5">
             <label>Телефон нөміріңіз</label>
-            <input type="tel" placeholder="+7 (___) ___-__-__" required />
+            <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required />
           </div>
           <div class="mb-6">
             <label>Қосымша сұрақ (міндетті емес)</label>
-            <textarea placeholder="Сұрақтарыңызды жазыңыз..."></textarea>
+            <textarea name="message" placeholder="Сұрақтарыңызды жазыңыз..."></textarea>
           </div>
-          <button type="submit" class="w-full bg-crimson text-white border-none py-3.5 rounded-full text-base font-extrabold cursor-pointer font-sans tracking-wide shadow-[0_4px_20px_rgba(139,26,26,0.3)] hover:bg-crimson-dark hover:-translate-y-0.5 transition">Жазылу сұранымын жіберу →</button>
+          <button id="submit-btn" type="submit" class="w-full bg-crimson text-white border-none py-3.5 rounded-full text-base font-extrabold cursor-pointer font-sans tracking-wide shadow-[0_4px_20px_rgba(139,26,26,0.3)] hover:bg-crimson-dark hover:-translate-y-0.5 transition disabled:opacity-60 disabled:cursor-not-allowed">Жазылу сұранымын жіберу →</button>
+          <p id="form-error" class="hidden text-[0.82rem] text-crimson font-semibold text-center mt-3">Қате кетті. Қайталап көріңіз немесе бізге қоңырау шалыңыз.</p>
         </form>
         <div id="form-success" class="hidden text-center p-8 text-crimson">
           <div class="text-5xl mb-4">✓</div>
@@ -581,10 +582,34 @@
     document.body.style.overflow = '';
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
+    const form = document.getElementById('signup-form');
+    const btn = document.getElementById('submit-btn');
+    const errEl = document.getElementById('form-error');
+    errEl.classList.add('hidden');
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Жіберілуде...';
+
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('Bad response: ' + res.status);
+      form.classList.add('hidden');
+      document.getElementById('form-success').classList.remove('hidden');
+    } catch (err) {
+      console.error('Submit failed:', err);
+      errEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = original;
+    }
   }
 
   // Smooth scroll — skip bare "#" (logo top link)
